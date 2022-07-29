@@ -13,7 +13,11 @@ Before running the application, you need to configure the demo first. Open Commo
     public static string sip_endpoint = "@sip-ap1.nexmo.com"; //this is Asia Pacific endpoint, use sip.nexmo.com if US
     public static string conferenceNumber = "";
     public static string serverUrl = ""; //this servers url
-
+    
+You have to add these nuget packages as well
+    OpenTok
+    Vonage
+    
 ## Setting up OpenTok & Nexmo projects
   For OpenTok:
   * Create an API Project to get the API Key and Secret.
