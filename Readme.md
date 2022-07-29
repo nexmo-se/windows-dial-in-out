@@ -15,8 +15,8 @@ Before running the application, you need to configure the demo first. Open Commo
     public static string serverUrl = ""; //this servers url
     
 You have to add these nuget packages as well
-    * OpenTok
-    * Vonage
+  * OpenTok
+  * Vonage
     
 ## Setting up OpenTok & Nexmo projects
   For OpenTok:
