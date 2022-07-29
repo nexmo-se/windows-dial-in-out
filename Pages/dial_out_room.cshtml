@@ -1,0 +1,48 @@
+﻿@page "/dial_out_room/{**roomId}"
+@model Opentok_Dial_in_out.Pages.dial_out_roomModel
+@{
+}
+<html>
+<head>
+    <title>Room</title>
+    <script type="text/javascript">
+        const apiKey = "@Model.API_KEY";
+        const sessionId = "@Model.sessionId";
+        const token = "@Model.token";
+        const roomId = "@Model.roomId";
+       
+        
+       
+        let connectionId, phoneNumber;
+        const dialOut = () => {
+          const phoneNumberElement = document.getElementById('phoneNumber');
+          phoneNumber = phoneNumberElement.value;
+          fetch(`/dial_out?roomId=${roomId}&phoneNumber=${phoneNumber}`)
+          .then(response => response.json())
+          .then((sipData) => {
+            connectionId = sipData.connectionId;
+            phoneNumberElement.value = '';
+          }).catch((error) => {
+              alert(`There was an error dialing-out`);
+          })
+        };
+        const hangUp = () => {
+          fetch(`/hang_up?roomId=${roomId}&phoneNumber=${phoneNumber}`)
+          .then(response => response)
+          .then((data) => {
+              console.log('dial-out-hang-up-complete');
+          }).catch((error) => {
+              alert(`There was an error hanging up`);
+          })
+        };</script>
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+    <script src="/js/opentok.js"></script>
+</head>
+<body>
+    <div id="publisher"></div>
+    <div id="subscribers"></div>
+    <input type="text" id="phoneNumber">
+    <button onclick="dialOut()">Click here to dial-out</button>
+    <button onclick="hangUp()">Click here to hang-up</button>
+</body>
+</html>

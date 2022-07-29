@@ -1,0 +1,47 @@
+﻿
+@{
+    
+}
+
+@functions
+{
+    public static int API_KEY = 47544721;
+    public static string API_SECRET = "1a3bd4b1f97e5c030f340b7ffeb2c015f8ab76fc";
+    public static string sip_username = "user";
+    public static string sip_password = "pass";
+
+    public static string conferenceNumber = "124";
+    public static string serverUrl = "https://";
+    public static Dictionary<string, string> store = new Dictionary<string, string>();
+    public static  Random _random = new Random();
+
+    public static OpenTokSDK.OpenTok OT = new OpenTokSDK.OpenTok(API_KEY, API_SECRET);
+
+    public static string generateToken(string sessionId, string sipTokenData = "")
+    { 
+        return  OT.GenerateToken(sessionId,OpenTokSDK.Role.PUBLISHER,0,sipTokenData);
+           
+    }
+
+
+    public static string generatePin(){
+        string pin = _random.Next(1000, 10000).ToString("D4");
+        if (store.ContainsKey(pin))
+        {
+            return generatePin();
+        }
+        return pin;
+    }
+
+
+    public static OpenTokSDK.DialOptions setSipOptions()
+    {
+        OpenTokSDK.DialOptions dialOpt = new OpenTokSDK.DialOptions();
+        dialOpt.Auth.Username = Shared.Pages_Shared__functions.sip_username;
+        dialOpt.Auth.Password = Shared.Pages_Shared__functions.sip_username;
+        dialOpt.Secure = false;
+        return dialOpt;
+    }
+
+   
+}
